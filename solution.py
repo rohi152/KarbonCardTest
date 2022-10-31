@@ -1,3 +1,4 @@
+
 import numpy as np
 import pandas as pd
 import sklearn.preprocessing as pre
@@ -11,7 +12,6 @@ SAMPLE_SOLUTION_1 = [[-1.224744871391589, -0.4629100498862757, 0],
 
 def data_imputation(input_matrix):
     # aim - impute zero values with mean of columns
-
     input_dataframe = pd.DataFrame(input_matrix, columns=['A','B','C'])
     output_dataframe = input_dataframe.copy()
     
@@ -24,18 +24,19 @@ def data_imputation(input_matrix):
 
 def data_transformation(input_dataframe):
     input_array = input_dataframe.values
-
     # aim - standardize the values
     scaler = pre.StandardScaler()
     transformed_array = scaler.fit_transform(input_array)
     return np.round(transformed_array, 5)
 
 def assembled_transfomation(input_matrix):
+    # aim - final tranformations on data
     imputed_dataframe = data_imputation(input_matrix)
     transformed_array = data_transformation(imputed_dataframe)
     return transformed_array
     
 def validation_with_sample(input_matrix, actual_output_matrix):
+    # aim - validate the solution with a sample test case
     output_array = assembled_transfomation(input_matrix)
 
     actual_output_array = np.array(actual_output_matrix)
@@ -43,7 +44,7 @@ def validation_with_sample(input_matrix, actual_output_matrix):
 
     assert((output_array - actual_output_array).all()==0)
 
-input_arr = [[1,3,2],[4,0,1],[1,4,0]]
+input_arr = [[1,3,2],[4,0,1],[1,4,0]]  # modify here to add your input
 
 class __main__():
     validation_with_sample(SAMPLE_INPUT_1, SAMPLE_SOLUTION_1)
